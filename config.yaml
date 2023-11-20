@@ -1,0 +1,27 @@
+epochs: 20
+batch_size: 8
+stage: finetune  # pretrain, finetune
+notes: 
+debug: false
+
+network:
+  hidden_size: 768
+  max_position_embeddings: 770
+  hidden_layers: 12
+  attn_heads: 12
+  drp: 0.1
+  attn_drp: 0.1
+
+optim:
+  lr: 1.0e-6
+
+sch:
+  name: linear  # constant, linear
+  warmup_steps: 0
+  # factor: 0.1
+  # patience: 4
+
+paths:
+  train_data: 'data/train.pkl'
+  val_data: 'data/val.pkl'
+  tokenizer: 'roberta-base'
