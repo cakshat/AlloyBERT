@@ -3,3 +3,5 @@ wandb/
 checkpoints/
 notes.md
 *.pkl
+/data/ys_clean_*.csv
+*.png
