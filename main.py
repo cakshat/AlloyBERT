@@ -95,5 +95,5 @@ if not config['debug']:
 
 if config["stage"] == 'pretrain':
     train_model_pt()
-if config["stage"] == 'finetune':
+elif config["stage"] == 'finetune':
     train_model_ft()

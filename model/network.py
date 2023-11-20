@@ -1,4 +1,6 @@
 import torch
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from transformers import RobertaConfig, RobertaForMaskedLM, RobertaModel, get_scheduler, logging
 
 logging.set_verbosity_error()
@@ -21,13 +23,12 @@ class AlloyBERT(torch.nn.Module):
 
 def create_model(config):
     roberta_config = RobertaConfig(
-        vocab_size=config['vocab_size'],
         max_position_embeddings=config['network']['max_position_embeddings'],
         hidden_size=config['network']['hidden_size'],
         num_attention_heads=config['network']['attn_heads'],
         num_hidden_layers=config['network']['hidden_layers'],
         type_vocab_size=1,
-        hidden_dropout_prob=config['network']['dropout'],
+        hidden_dropout_prob=config['network']['drp'],
         attention_probs_dropout_prob=config['network']['attn_drp']
     )
 
@@ -51,12 +52,12 @@ def cri_opt_sch(config, model):
         criterion = None
     elif config['stage'] == 'finetune':
         criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config['model']['lr'])
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config['optim']['lr'])
 
-    scheduler = get_scheduler(config['sch']['scheduler'],
+    scheduler = get_scheduler(config['sch']['name'],
         optimizer=optimizer,
         num_warmup_steps=config['sch']['warmup_steps'],
-        num_training_steps=int(config['train_len'] / config['batch_size'] * config['num_epochs'])    
+        num_training_steps=int(config['train_len'] / config['batch_size'] * config['epochs'])    
     )
     # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
     #     optimizer,
