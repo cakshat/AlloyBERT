@@ -12,7 +12,7 @@ class AlloyBERT(torch.nn.Module):
 
         self.roberta = model
         self.head = torch.nn.Sequential(
-            torch.nn.Linear(config['network']['hidden_size'], 1)
+            torch.nn.Linear(model.embeddings.word_embeddings.embedding_dim, 1)
         )
 
     def forward(self, inputs, attention_mask):
@@ -36,11 +36,7 @@ def create_model(config):
         model = RobertaForMaskedLM(roberta_config).to(config['device'])
         config['network']['max_len'] = model.embeddings.position_embeddings.num_embeddings-2
     elif config['stage'] == 'finetune':
-        model = RobertaModel.from_pretrained(
-            'roberta-base', 
-            config=roberta_config, 
-            ignore_mismatched_sizes=True
-        )
+        model = RobertaModel.from_pretrained('roberta-base')
         config['network']['max_len'] = model.embeddings.position_embeddings.num_embeddings-2
         model = AlloyBERT(config, model).to(config['device'])
 
