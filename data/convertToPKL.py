@@ -2,23 +2,28 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
+dataset = 'MPEA_clean'
+
 # normalize YS, split into train and val sets
-data = pd.read_csv('./data/ys_clean.csv')
-data['YS'] /= max(data['YS'])
+data = pd.read_csv(f'./data/{dataset}.csv')
+
+if dataset == 'ys_clean':
+    targetCol = 'YS'
+elif dataset == 'MPEA_clean':
+    targetCol = 'PROPERTY: Calculated Young modulus (GPa)'
+
+data[targetCol] /= max(data[targetCol])
 tr, vl = train_test_split(data, test_size=0.15)
-tr.to_csv('./data/ys_clean_tr.csv')
-vl.to_csv('./data/ys_clean_vl.csv')
+tr.to_csv(f'./data/{dataset}_tr.csv')
+vl.to_csv(f'./data/{dataset}_vl.csv')
 
-# tr = pd.read_csv('./data/ys_clean_tr.csv')
-ytr = tr['YS']
-Xtr = tr.drop('YS', axis=1)
+# tr = pd.read_csv(f'./data/{dataset}_tr.csv')
+ytr = tr[targetCol]
+Xtr = tr.drop(targetCol, axis=1)
 
-# vl = pd.read_csv('./data/ys_clean_vl.csv')
-yvl = vl['YS']
-Xvl = vl.drop('YS', axis=1)
-
-targettr = ytr.tolist()
-targetvl = yvl.tolist()
+# vl = pd.read_csv(f'./data/{dataset}_vl.csv')
+yvl = vl[targetCol]
+Xvl = vl.drop(targetCol, axis=1)
 
 texttr = []
 for i, row in Xtr.iterrows():
@@ -36,11 +41,11 @@ for i, row in Xvl.iterrows():
 
 df_train = pd.DataFrame()
 df_train['text'] = texttr
-df_train['target'] = targettr
+df_train['target'] = ytr.tolist()
 
 df_val = pd.DataFrame()
 df_val['text'] = textvl
-df_val['target'] = targetvl
+df_val['target'] = yvl.tolist()
 
-df_train.to_pickle('./data/train.pkl')
-df_val.to_pickle('./data/val.pkl')
+df_train.to_pickle(f'./data/{dataset}_tr.pkl')
+df_val.to_pickle(f'./data/{dataset}_vl.pkl')
