@@ -1,5 +1,5 @@
-epochs: 20
-batch_size: 8
+epochs: 60
+batch_size: 4
 stage: finetune  # pretrain, finetune
 notes: 
 debug: false
@@ -13,7 +13,7 @@ network:
   attn_drp: 0.1
 
 optim:
-  lr: 1.0e-6
+  lr: 1.0e-5
 
 sch:
   name: linear  # constant, linear
@@ -22,6 +22,6 @@ sch:
   # patience: 4
 
 paths:
-  train_data: 'data/train.pkl'
-  val_data: 'data/val.pkl'
+  train_data: 'data/ys_clean/tr.pkl'
+  val_data: 'data/ys_clean/vl.pkl'
   tokenizer: 'roberta-base'
