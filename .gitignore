@@ -3,7 +3,6 @@ wandb/
 checkpoints/
 notes.md
 *.pkl
-data/ys_clean_*.csv
-data/MPEA_clean_*.csv
-data/MPEA_numeric_*.csv
+*tr*.*
+*vl*.*
 *.png
