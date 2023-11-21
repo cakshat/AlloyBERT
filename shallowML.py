@@ -5,16 +5,21 @@ from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 
 
-dataset = 'ys_clean'
+dataset = 'MPEA_numeric'
 
-tr = pd.read_csv(f'./data/{dataset}_tr.csv')
-vl = pd.read_csv(f'./data/{dataset}_vl.csv')
+tr = pd.read_csv(f'./data/{dataset}/tr.csv')
+vl = pd.read_csv(f'./data/{dataset}/vl.csv')
 
-ytr = tr['YS']
-Xtr = tr.drop('YS', axis=1)
+if dataset == 'ys_clean':
+    targetCol = 'YS'
+else:
+    targetCol = 'PROPERTY: Calculated Young modulus (GPa)'
 
-yvl = vl['YS']
-Xvl = vl.drop('YS', axis=1)
+ytr = tr[targetCol]
+Xtr = tr.drop(targetCol, axis=1)
+
+yvl = vl[targetCol]
+Xvl = vl.drop(targetCol, axis=1)
 
 
 # Linear Regression
