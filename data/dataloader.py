@@ -12,7 +12,7 @@ def load_data(config):
 
     tokenizer = RobertaTokenizerFast.from_pretrained(
         config['paths']['tokenizer'],
-        max_len=config['network']['max_len']
+        max_len=512
     )
 
     if config['stage'] == 'pretrain':

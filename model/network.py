@@ -22,22 +22,10 @@ class AlloyBERT(torch.nn.Module):
 
 
 def create_model(config):
-    roberta_config = RobertaConfig(
-        max_position_embeddings=config['network']['max_position_embeddings'],
-        hidden_size=config['network']['hidden_size'],
-        num_attention_heads=config['network']['attn_heads'],
-        num_hidden_layers=config['network']['hidden_layers'],
-        type_vocab_size=1,
-        hidden_dropout_prob=config['network']['drp'],
-        attention_probs_dropout_prob=config['network']['attn_drp']
-    )
-
     if config['stage'] == 'pretrain':
-        model = RobertaForMaskedLM(roberta_config).to(config['device'])
-        config['network']['max_len'] = config['network']['max_position_embeddings']
+        model = RobertaForMaskedLM.from_pretrained('roberta-base').to(config['device'])
     elif config['stage'] == 'finetune':
         model = RobertaModel.from_pretrained('roberta-base')
-        config['network']['max_len'] = model.embeddings.position_embeddings.num_embeddings-2
         model = AlloyBERT(config, model).to(config['device'])
 
     return model

@@ -6,7 +6,7 @@ import os
 import shutil
 from data.dataloader import load_data
 from model.network import create_model, cri_opt_sch
-from model.utils import train_pt, validate_pt, train_ft, validate_ft
+from model.utils import train_pt, validate_pt, train_ft, validate_ft, load_pretrained
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Device: {device}\n')
@@ -80,6 +80,8 @@ config = yaml.load(open('./config.yaml', 'r'), Loader=yaml.FullLoader)
 config['device'] = device
 
 model = create_model(config)
+if config['stage'] == 'finetune' and config['load_pretrained']:
+    load_pretrained(model, config['paths']['pretrained'])
 train_data_loader, val_data_loader = load_data(config)
 criterion, optimizer, scheduler = cri_opt_sch(config, model)
 

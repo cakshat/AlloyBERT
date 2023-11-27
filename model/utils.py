@@ -85,3 +85,13 @@ def validate_ft(model, dataloader, criterion, device):
         total_error += torch.mean(torch.abs(target - output))
 
     return (total_loss / len(dataloader)), (total_error / len(dataloader))
+
+
+def load_pretrained(model, pretrained_path):
+    model_dict = model.state_dict()
+    pretrained_dict = torch.load(pretrained_path)['model_state_dict']
+
+    matched_keys = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+
+    model.load_state_dict(matched_keys, strict=False)
+    print('Pretrained Checkpoint Loaded')
