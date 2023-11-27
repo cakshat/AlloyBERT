@@ -34,7 +34,7 @@ def create_model(config):
 
     if config['stage'] == 'pretrain':
         model = RobertaForMaskedLM(roberta_config).to(config['device'])
-        config['network']['max_len'] = model.embeddings.position_embeddings.num_embeddings-2
+        config['network']['max_len'] = config['network']['max_position_embeddings']
     elif config['stage'] == 'finetune':
         model = RobertaModel.from_pretrained('roberta-base')
         config['network']['max_len'] = model.embeddings.position_embeddings.num_embeddings-2
