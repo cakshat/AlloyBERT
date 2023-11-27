@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-dataset = 'MPEA_clean'
+dataset = 'MPEA'
 
 # normalize YS, split into train and val sets
 data = pd.read_csv(f'./data/{dataset}/{dataset}.csv')
