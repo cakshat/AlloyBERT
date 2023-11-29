@@ -99,3 +99,4 @@ if config["stage"] == 'pretrain':
     train_model_pt()
 elif config["stage"] == 'finetune':
     train_model_ft()
+    print('Best val MSE: {:.5f}'.format(torch.load(f'{save_dir}/model.pt')['val_loss']))
