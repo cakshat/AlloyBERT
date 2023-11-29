@@ -1,4 +1,4 @@
-epochs: 60
+epochs: 50
 batch_size: 4
 stage: finetune  # pretrain, finetune
 notes: 

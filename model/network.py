@@ -41,7 +41,7 @@ def cri_opt_sch(config, model):
     scheduler = get_scheduler(config['sch']['name'],
         optimizer=optimizer,
         num_warmup_steps=config['sch']['warmup_steps'],
-        num_training_steps=int(config['train_len'] / config['batch_size'] * config['epochs'])    
+        num_training_steps=int(config['train_len'] * config['epochs'])
     )
     # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
     #     optimizer,
