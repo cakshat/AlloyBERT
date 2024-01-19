@@ -3,6 +3,6 @@ wandb/
 checkpoints/
 notes.md
 *.pkl
-*tr*.*
-*vl*.*
+*tr*.csv
+*vl*.csv
 *.png
