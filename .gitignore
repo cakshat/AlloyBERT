@@ -1,6 +1,7 @@
 __pycache__/
 wandb/
 checkpoints/
+custom_tkz/
 notes.md
 *.pkl
 *tr*.csv
