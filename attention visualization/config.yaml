@@ -1,0 +1,21 @@
+epochs: 50
+batch_size: 1
+stage: finetune  # pretrain, finetune
+notes: 
+debug: false
+load_pretrained: true
+
+optim:
+  lr: 1.0e-5
+
+sch:
+  name: linear  # constant, linear
+  warmup_steps: 0
+  # factor: 0.1
+  # patience: 4
+
+paths:
+  train_data: 'C:\Akshat\CMU\Academic\Fall 2023\MAIL Project\AlBERTA\MPEA_3_sets\tr1.pkl'
+  val_data: 'C:\Akshat\CMU\Academic\Fall 2023\MAIL Project\AlBERTA\MPEA_3_sets\vl1.pkl'
+  tokenizer: 'C:\Akshat\CMU\Academic\Fall 2023\MAIL Project\AlBERTA\alberta'
+  pretrained: 'C:\Akshat\CMU\Academic\Fall 2023\MAIL Project\AlBERTA\AlloyBERT\checkpoints\pretrain\pretrain-1129_0042\model.pt'
