@@ -15,7 +15,7 @@ sch:
   # patience: 4
 
 paths:
-  train_data: 'data/ys_clean/tr.pkl'
-  val_data: 'data/ys_clean/vl.pkl'
+  train_data: 'data/ys_clean/tr1.pkl' # 'data/MPEA/tr1.pkl'
+  val_data: 'data/ys_clean/vl1.pkl' # 'data/MPEA/vl1.pkl'
   tokenizer: 'roberta-base'
   pretrained: 
