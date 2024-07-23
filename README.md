@@ -17,7 +17,7 @@ For this research, we utilized two primary datasets to explore the performance o
 Both the datasets can be found in the data folder as : `cd data/MPEA/MPEA.csv` and `cd data/ys_clean/ys_clean.csv`.
 
 ## How to use
-1. Update the `config.py` file with desired parameters.
+1. Update the `config.yaml` file with desired parameters.
 2. Run `python main.py` to train the model.
 3. While pretraining make sure to set the configuration to pretrain.
 4. After pretraining, update the path of pretrained model and change mode to finetune.
