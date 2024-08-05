@@ -1,7 +1,7 @@
 import torch
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-from transformers import RobertaConfig, RobertaForMaskedLM, RobertaModel, get_scheduler, logging
+from transformers import RobertaConfig, RobertaForMaskedLM, RobertaModel, get_scheduler, logging, BertForMaskedLM, BertModel
 
 logging.set_verbosity_error()
 
@@ -18,11 +18,18 @@ class AlloyBERT(torch.nn.Module):
     def forward(self, inputs, attention_mask):
         output = self.roberta(inputs, attention_mask=attention_mask)
 
+        ### BERT ###
+        # output = self.bert(input_ids, attention_mask=attention_mask, output_hidden_states=True)
+        # output = output.hidden_states[-1].mean(dim=1)
+        # return self.head(output)
+        ### BERT ###
+
         return self.head(output.pooler_output)
 
 
 def create_model(config):
     if config['stage'] == 'pretrain':
+        # model = BertForMaskedLM.from_pretrained('bert-base-uncased').to(config['device'])
         model = RobertaForMaskedLM.from_pretrained('roberta-base').to(config['device'])
     elif config['stage'] == 'finetune':
         model = RobertaModel.from_pretrained('roberta-base')
